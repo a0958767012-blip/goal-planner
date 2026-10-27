@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>存夢計畫｜個人理財目標規劃</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF3F1;--card:#fff;--ink:#14302B;--sub:#5B706B;--line:#D5E1DC;--jade:#12805F;--jade2:#DDF1E8;--amber:#C98A00;--amber2:#FFF1CC;--blue:#2F6FA3;--red:#C2410C;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1B18;--card:#172823;--ink:#E6F2EE;--sub:#97B0A8;--line:#2A423B;--jade:#3CC79A;--jade2:#173B31;--amber:#F2B632;--amber2:#3A2F10;--blue:#6FB0E3;--red:#FB923C}}
+:root[data-theme="dark"]{--bg:#0F1B18;--card:#172823;--ink:#E6F2EE;--sub:#97B0A8;--line:#2A423B;--jade:#3CC79A;--jade2:#173B31;--amber:#F2B632;--amber2:#3A2F10;--blue:#6FB0E3;--red:#FB923C}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:20px 16px 60px}
+h1,h2,h3{margin:0;font-family:"Noto Serif TC","Songti TC",serif;line-height:1.35}
+header{padding:18px 0 8px}
+header h1{font-size:clamp(26px,5vw,38px);font-weight:900}
+header p{margin:6px 0 0;color:var(--sub);max-width:60ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:16px}
+h2{font-size:20px;margin-bottom:10px}
+.goals{display:flex;gap:8px;overflow-x:auto;padding:4px 0 6px;margin-top:10px}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;cursor:pointer;display:flex;gap:6px;align-items:center}
+.chip[aria-pressed="true"]{border-color:var(--jade);background:var(--jade2);font-weight:700}
+.chip small{color:var(--sub)}
+.add{border-style:dashed;color:var(--jade)}
+.layout{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:880px){.layout{grid-template-columns:340px 1fr;align-items:start}.layout>.card{margin-top:0}}
+label{display:block;font-size:14px;color:var(--sub);margin:12px 0 4px}
+.f{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);padding:0 10px}
+.f:focus-within{border-color:var(--jade)}
+.f input,.f select{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:17px;padding:9px 0;outline:0}
+.f span{color:var(--sub);font-size:14px;padding-right:6px}
+.f.pre span{padding:0 6px 0 0}
+.hint{font-size:12.5px;color:var(--sub);margin-top:3px}
+.hero{background:var(--jade);color:#fff;border-radius:16px;padding:22px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{background:#0E5C45}}
+.hero .q{font-size:14px;opacity:.9}
+.hero .big{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(34px,8vw,54px);line-height:1.2;margin:4px 0}
+.hero p{margin:6px 0 0;font-size:15px}
+.stats{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:14px}
+.stat{background:var(--bg);border-radius:12px;padding:12px}
+.stat b{display:block;font-size:20px;font-family:"Noto Serif TC",serif}
+.stat span{font-size:13px;color:var(--sub)}
+.good{color:var(--jade)}.bad{color:var(--red)}
+.bar{height:14px;background:var(--bg);border-radius:8px;overflow:hidden;margin:6px 0 2px;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--jade);border-radius:8px;transition:width .4s}
+.bar.p i{background:var(--blue)}
+.row{display:flex;justify-content:space-between;font-size:14px;gap:8px}
+.slider{width:100%;accent-color:var(--jade);margin:8px 0}
+.btn{border:0;border-radius:10px;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer;background:var(--jade);color:#fff}
+.btn.o{background:transparent;color:var(--ink);border:1.5px solid var(--line);font-weight:500}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.note{background:var(--amber2);border-radius:12px;padding:12px 14px;font-size:15px;margin-top:12px}
+svg text{fill:var(--sub);font-size:11px;font-family:inherit}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--sub);margin-top:6px}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.tip{font-size:14px;min-height:22px;color:var(--ink);margin-top:4px}
+.wide{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:460px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+details{border-top:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:700}
+details p,details li{color:var(--sub);font-size:15px}
+code{background:var(--bg);padding:2px 6px;border-radius:6px;font-size:14px;color:var(--ink)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+footer{color:var(--sub);font-size:13px;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>存夢計畫</h1>
+<p>把想完成的事變成數字：設定目標，馬上知道每月該存多少、未來會累積多少，還差多少。</p>
+</header>
+
+<div class="goals" id="goals" role="group" aria-label="我的目標"></div>
+
+<div class="layout">
+<section class="card" aria-label="目標設定">
+<h2>① 設定這個目標</h2>
+<label for="name">目標名稱</label>
+<div class="f"><input id="name" maxlength="12"></div>
+<label for="target">我想存到（目標金額）</label>
+<div class="f pre"><span>NT$</span><input id="target" type="number" inputmode="numeric" min="0" step="1000"></div>
+<label for="pv">我現在已經有（現值 PV）</label>
+<div class="f pre"><span>NT$</span><input id="pv" type="number" inputmode="numeric" min="0" step="1000"></div>
+<label for="years">打算幾年達成</label>
+<div class="f"><input id="years" type="number" inputmode="decimal" min="0.5" max="50" step="0.5"><span>年</span></div>
+<label for="rate">預期年報酬率</label>
+<div class="f"><input id="rate" type="number" inputmode="decimal" min="0" max="20" step="0.1"><span>%</span></div>
+<div class="hint">活存約 1%、定存約 1.5%、長期投資常以 4–6% 試算。報酬不保證，建議保守估計。</div>
+<div class="btns"><button class="btn o" id="del">刪除此目標</button></div>
+</section>
+
+<div>
+<section class="hero" aria-live="polite" id="hero"></section>
+
+<section class="card">
+<h2>② 目標進度</h2>
+<div id="prog"></div>
+<h3 style="font-size:16px;margin-top:16px">試試看：我每月存多少？</h3>
+<div class="f pre" style="margin-top:6px"><span>每月投入 NT$</span><input id="pmt" type="number" inputmode="numeric" min="0" step="500"></div>
+<input class="slider" id="slider" type="range" min="0" step="500" aria-label="每月投入金額">
+<div class="btns"><button class="btn" id="useReq">套用建議金額</button></div>
+<div id="stats" class="stats"></div>
+<div class="note" id="advice"></div>
+</section>
+
+<section class="card">
+<h2>③ 資產成長圖</h2>
+<div id="chart"></div>
+<div class="legend"><span><i style="background:var(--jade)"></i>我的計畫</span><span><i style="background:var(--blue)"></i>只存本金（不含利息）</span><span><i style="background:var(--amber);height:0;border-top:3px dashed var(--amber)"></i>目標金額</span></div>
+<div class="tip" id="tip">把滑鼠移到圖上，或用手指滑過圖表，查看每一年的資產。</div>
+</section>
+</div>
+</div>
+
+<section class="card">
+<h2>④ 我的所有目標總覽</h2>
+<div class="wide"><table id="ov"></table></div>
+</section>
+
+<section class="card">
+<h2>使用說明與公式</h2>
+<details open><summary>怎麼使用？</summary>
+<ol><li>點上方的目標標籤切換，或按「＋新增目標」，選旅行、緊急預備金、購屋頭期款等範本。</li>
+<li>在左側填入目標金額、目前存款、年數與預期報酬率。</li>
+<li>右側會立即顯示「每月應存金額」。你也可以拖曳滑桿，看看自己的存法能累積多少。</li>
+<li>圖表和總覽表會同步更新，幫你比較不同目標的負擔。</li></ol></details>
+<details><summary>三個關鍵名詞</summary>
+<p><b>PV（現值）</b>：你現在手上已經有的錢。<b>FV（終值）</b>：未來某一天這筆錢加上持續投入後會變成多少。<b>PMT</b>：每個月固定存進去的金額。</p></details>
+<details><summary>計算公式（月複利、每月月底投入）</summary>
+<p>月利率 <code>r = 年報酬率 ÷ 12</code>，期數 <code>n = 年數 × 12</code></p>
+<p>未來資產：<code>FV = PV×(1+r)ⁿ + PMT×[((1+r)ⁿ−1)÷r]</code></p>
+<p>每月應存：<code>PMT = (目標 − PV×(1+r)ⁿ) × r ÷ ((1+r)ⁿ−1)</code></p>
+<p>想一次存到目標，今天要有：<code>PV = 目標 ÷ (1+r)ⁿ</code>。若報酬率為 0%，則 <code>PMT = (目標 − PV) ÷ n</code>。</p></details>
+<details><summary>注意事項</summary>
+<p>本工具為教育試算，未計入稅費、通膨與市場波動。緊急預備金建議放在低風險、可隨時提領的帳戶。你的資料只儲存在這個瀏覽器中。</p></details>
+</section>
+<footer>本頁僅供試算參考，不構成任何投資建議。</footer>
+</div>
+
+<script>
+const PRE=[{n:'旅行基金',i:'✈️',t:150000,pv:20000,y:2,r:2},{n:'緊急預備金',i:'🛟',t:300000,pv:50000,y:3,r:1.5},{n:'購屋頭期款',i:'🏠',t:2000000,pv:200000,y:10,r:4},{n:'自訂目標',i:'🎯',t:500000,pv:0,y:5,r:3}];
+const $=id=>document.getElementById(id);
+const money=v=>'NT$ '+Math.round(v).toLocaleString('zh-TW');
+let goals=[],cur=0,uid=1;
+
+function bal(k,g,pmt){const r=g.r/1200,gr=Math.pow(1+r,k);return r===0?g.pv+pmt*k:g.pv*gr+pmt*(gr-1)/r}
+function reqPmt(g){const n=Math.round(g.y*12),r=g.r/1200;if(n<=0)return 0;const gr=Math.pow(1+r,n);const need=g.t-g.pv*gr;if(need<=0)return 0;return r===0?need/n:need*r/(gr-1)}
+function mk(p,boost){const g={id:uid++,name:p.n,icon:p.i,t:p.t,pv:p.pv,y:p.y,r:p.r,pmt:0};g.pmt=Math.round(reqPmt(g)*(boost||1)/100)*100;return g}
+function load(){try{const s=JSON.parse(localStorage.getItem('goals-v1'));if(s&&s.goals&&s.goals.length){goals=s.goals;uid=s.uid||100;cur=0;return}}catch(e){}
+goals=[mk(PRE[0],.8),mk(PRE[1],1),mk(PRE[2],.85)];}
+function save(){try{localStorage.setItem('goals-v1',JSON.stringify({goals,uid}))}catch(e){}}
+const G=()=>goals[cur];
+
+function renderChips(){const el=$('goals');el.innerHTML='';
+goals.forEach((g,i)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed',i===cur);b.innerHTML=g.icon+' '+esc(g.name);b.onclick=()=>{cur=i;renderAll()};el.appendChild(b)});
+const a=document.createElement('button');a.className='chip add';a.textContent='＋新增目標';a.onclick=addMenu;el.appendChild(a)}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function addMenu(){const el=$('goals');el.innerHTML='';PRE.forEach(p=>{const b=document.createElement('button');b.className='chip add';b.textContent=p.i+' '+p.n;b.onclick=()=>{goals.push(mk(p,.9));cur=goals.length-1;renderAll()};el.appendChild(b)});
+const c=document.createElement('button');c.className='chip';c.textContent='取消';c.onclick=renderChips;el.appendChild(c)}
+
+function renderForm(){const g=G();$('name').value=g.name;$('target').value=g.t;$('pv').value=g.pv;$('years').value=g.y;$('rate').value=g.r;$('pmt').value=g.pmt;syncSlider()}
+function syncSlider(){const g=G(),s=$('slider');const mx=Math.max(20000,Math.ceil(reqPmt(g)*2/5000)*5000,Math.ceil(g.pmt/5000)*5000);s.max=mx;s.value=g.pmt}
+
+function monthsToReach(g,pmt){const n=Math.round(g.y*12);for(let k=0;k<=n;k++)if(bal(k,g,pmt)>=g.t)return k;return null}
+function ym(m){const y=Math.floor(m/12),mo=m%12;return (y?y+' 年 ':'')+(mo?mo+' 個月':(y?'':'0 個月'))}
+
+function renderResults(){const g=G(),n=Math.round(g.y*12);
+const req=reqPmt(g),fv=bal(n,g,g.pmt),gap=g.t-fv,princ=g.pv+g.pmt*n,interest=fv-princ;
+const pvNeed=g.t/Math.pow(1+g.r/1200,n);
+const ok=gap<=0;
+let h;
+if(g.t<=0||n<=0){h='<div class="q">請輸入大於 0 的目標金額與年數</div>'}
+else if(req===0){h=`<div class="q">好消息！「${esc(g.name)}」</div><div class="big">不用再存也能達標</div><p>光靠現有的 ${money(g.pv)} 放著生利息，${g.y} 年後就會超過 ${money(g.t)}。</p>`}
+else h=`<div class="q">想在 ${g.y} 年後完成「${esc(g.name)}」，每月需要存</div><div class="big">${money(req)}</div><p>相當於每天約 ${money(req/30)}。若年報酬率 ${g.r}% 都能達成，${g.y} 年後就能存到 ${money(g.t)}。</p>`;
+$('hero').innerHTML=h;
+const pr=Math.max(0,Math.min(100,g.pv/g.t*100)),pj=Math.max(0,Math.min(100,fv/g.t*100));
+$('prog').innerHTML=`<div class="row"><span>現在已存</span><b>${pr.toFixed(0)}%</b></div><div class="bar"><i style="width:${pr}%"></i></div><div class="row"><span>${money(g.pv)}</span><span>目標 ${money(g.t)}</span></div>
+<div class="row" style="margin-top:12px"><span>照你的每月投入，預計達成</span><b class="${ok?'good':'bad'}">${pj.toFixed(0)}%</b></div><div class="bar p"><i style="width:${pj}%"></i></div>`;
+$('stats').innerHTML=`<div class="stat"><b>${money(g.pmt)}</b><span>你每月投入（PMT）</span></div>
+<div class="stat"><b>${money(fv)}</b><span>${g.y} 年後資產（FV）</span></div>
+<div class="stat"><b class="${ok?'good':'bad'}">${ok?'+':'−'}${money(Math.abs(gap))}</b><span>${ok?'超過目標':'距離目標還差'}</span></div>
+<div class="stat"><b>${money(Math.max(0,interest))}</b><span>其中利息收益</span></div>
+<div class="stat"><b>${money(pvNeed)}</b><span>若一次投入，今天需要的錢</span></div>`;
+let a;
+if(g.t<=0||n<=0)a='請先填好目標金額與年數。';
+else if(ok){const m=monthsToReach(g,g.pmt);a=`✅ 照這個存法，大約 <b>${ym(m)}</b> 就能達標，比原訂時間${m<n?'更早':'剛好'}。你一共投入 ${money(princ)}，利息幫你多賺 ${money(interest)}。`}
+else a=`⚠️ 照目前每月 ${money(g.pmt)}，${g.y} 年後會差 <b>${money(gap)}</b>。可以：①每月多存 ${money(Math.max(0,req-g.pmt))}、②把時間延長，或③降低目標金額。按「套用建議金額」即可看到達標的樣子。`;
+$('advice').innerHTML=a;
+drawChart(g,n,req);renderOv()}
+
+function drawChart(g,n,req){const W=640,H=280,L=56,R=12,T=14,B=30,N=Math.max(n,1);
+const pts=[],pp=[];for(let k=0;k<=N;k++){pts.push(bal(k,g,g.pmt));pp.push(g.pv+g.pmt*k)}
+const mx=Math.max(g.t,...pts)*1.08||1;
+const X=k=>L+(W-L-R)*k/N,Y=v=>T+(H-T-B)*(1-v/mx);
+const line=a=>a.map((v,k)=>(k?'L':'M')+X(k).toFixed(1)+' '+Y(v).toFixed(1)).join('');
+let s=`<svg id="svg" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="資產成長折線圖" style="touch-action:pan-y">`;
+for(let i=0;i<=4;i++){const v=mx*i/4;s+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${fmtK(v)}</text>`}
+const yrs=Math.ceil(g.y),step=yrs>12?Math.ceil(yrs/8):1;
+for(let y=0;y<=yrs;y+=step){const k=Math.min(N,y*12);s+=`<text x="${X(k)}" y="${H-10}" text-anchor="middle">${y}年</text>`}
+s+=`<path d="M${X(0)} ${Y(g.t)}H${X(N)}" stroke="var(--amber)" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/>`;
+s+=`<path d="${line(pp)}" stroke="var(--blue)" stroke-width="2.5" fill="none"/><path d="${line(pts)}" stroke="var(--jade)" stroke-width="3.5" fill="none" stroke-linejoin="round"/>`;
+s+=`<line id="cl" x1="0" x2="0" y1="${T}" y2="${H-B}" stroke="var(--sub)" opacity="0"/><circle id="cd" r="5" fill="var(--jade)" stroke="#fff" stroke-width="2" opacity="0"/></svg>`;
+$('chart').innerHTML=s;
+const svg=$('svg');
+const mv=e=>{const p=e.touches?e.touches[0]:e,r=svg.getBoundingClientRect();let x=(p.clientX-r.left)/r.width*W;let k=Math.round((x-L)/(W-L-R)*N);k=Math.max(0,Math.min(N,k));
+$('cl').setAttribute('x1',X(k));$('cl').setAttribute('x2',X(k));$('cl').setAttribute('opacity',.6);$('cd').setAttribute('cx',X(k));$('cd').setAttribute('cy',Y(pts[k]));$('cd').setAttribute('opacity',1);
+$('tip').innerHTML=`第 <b>${ym(k)||'0 個月'}</b>：資產 <b>${money(pts[k])}</b>（本金 ${money(pp[k])}，利息 ${money(pts[k]-pp[k])}）`};
+svg.addEventListener('mousemove',mv);svg.addEventListener('touchstart',mv,{passive:true});svg.addEventListener('touchmove',mv,{passive:true})}
+function fmtK(v){return v>=1e6?(v/1e6).toFixed(1).replace('.0','')+'百萬':v>=1e4?Math.round(v/1e4)+'萬':Math.round(v)}
+
+function renderOv(){let tr=0,tp=0;let h='<tr><th>目標</th><th>目標金額</th><th>年數</th><th>建議月存</th><th>你的月存</th><th>預估差額</th></tr>';
+goals.forEach(g=>{const n=Math.round(g.y*12),rq=reqPmt(g),gap=g.t-bal(n,g,g.pmt);tr+=rq;tp+=g.pmt;
+h+=`<tr><td>${g.icon} ${esc(g.name)}</td><td>${money(g.t)}</td><td>${g.y}</td><td>${money(rq)}</td><td>${money(g.pmt)}</td><td class="${gap<=0?'good':'bad'}">${gap<=0?'已達標':'差 '+money(gap)}</td></tr>`});
+h+=`<tr><td><b>合計</b></td><td></td><td></td><td><b>${money(tr)}</b></td><td><b>${money(tp)}</b></td><td></td></tr>`;$('ov').innerHTML=h}
+
+function renderAll(){renderChips();renderForm();renderResults();save()}
+function num(id){const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0}
+[['name'],['target','t'],['pv','pv'],['years','y'],['rate','r']].forEach(([id,k])=>{$(id).addEventListener('input',()=>{const g=G();
+if(id==='name'){g.name=$('name').value||'未命名目標';renderChips()}else{g[k]=num(id);if(k==='y')g.y=Math.min(50,g.y);if(k==='r')g.r=Math.min(20,g.r);syncSlider()}
+renderResults();save()})});
+$('pmt').addEventListener('input',()=>{G().pmt=num('pmt');syncSlider();renderResults();save()});
+$('slider').addEventListener('input',e=>{G().pmt=+e.target.value;$('pmt').value=G().pmt;renderResults();save()});
+$('useReq').onclick=()=>{G().pmt=Math.ceil(reqPmt(G()));renderForm();renderResults();save()};
+$('del').onclick=()=>{if(goals.length<2){const p=PRE[3];goals=[mk(p,1)]}else{goals.splice(cur,1)}cur=0;renderAll()};
+load();renderAll();
+</script>
+</body>
+</html>
